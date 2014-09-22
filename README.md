@@ -23,3 +23,5 @@ You can easily get the JSON objects from a valid configuration file:
 
 <pre><code># ./bin/launchpad validate <your_aws.conf> --lp.validate.dumpTemplates=true
 <code></pre>
+
+Remember to change all the random virtual instance id numbers (eg, those that look like this "6e3609d3-6gdf-5be0-9836-21984e80e3cd") if you're re-running these scripts within 24 hrs.
