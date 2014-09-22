@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# This is the orginal from which I hacked all others
 
 import sys
 import os
