@@ -39,16 +39,16 @@ def main(args):
         'provider': provider
     } 
 
-    print "Doing DELETE request to http://launchpad-server:8080/api/environments with:\n"
+    print "Doing DELETE request to http://launchpad-server:7189/api/environments with:\n"
     pprint(environment)
     pprint(envname)
 
     headers = {'content-type': 'application/json'}
-    #result = requests.get('http://localhost:8080/api/environments', data=json.dumps(environment), headers=headers)
-    querystr = 'http://localhost:8080/api/v1/environments/'+envname+'/deployments/'+deployname
+    #result = requests.get('http://localhost:7189/api/environments', data=json.dumps(environment), headers=headers)
+    querystr = 'http://localhost:7189/api/v1/environments/'+envname+'/deployments/'+deployname
     pprint(querystr)
 
-    #result = requests.delete('http://localhost:8080/api/v1/environments/'+envname+'/deployments/'+deployname)
+    #result = requests.delete('http://localhost:7189/api/v1/environments/'+envname+'/deployments/'+deployname)
     result = requests.delete(querystr)
 
     print "\nGot response:\n"

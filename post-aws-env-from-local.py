@@ -35,11 +35,11 @@ def main(args):
         'provider': provider
     } 
 
-    print "Doing POST request to http://launchpad-server:8080/api/environments with:\n"
+    print "Doing POST request to http://launchpad-server:7189/api/environments with:\n"
     pprint(environment)
 
     headers = {'content-type': 'application/json'}
-    result = requests.post('http://localhost:8080/api/v1/environments', data=json.dumps(environment), headers=headers)
+    result = requests.post('http://localhost:7189/api/v1/environments', data=json.dumps(environment), headers=headers)
 
     print "\nGot response:\n"
     pprint(result)

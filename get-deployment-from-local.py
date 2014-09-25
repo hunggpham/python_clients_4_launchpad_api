@@ -38,13 +38,13 @@ def main(args):
         'provider': provider
     } 
 
-    print "Doing GET request to http://launchpad-server:8080/api/environments with:\n"
+    print "Doing GET request to http://launchpad-server:7189/api/environments with:\n"
     pprint(environment)
     pprint(envname)
 
     headers = {'content-type': 'application/json'}
-    #result = requests.get('http://localhost:8080/api/environments', data=json.dumps(environment), headers=headers)
-    result = requests.get('http://localhost:8080/api/v1/environments/'+envname+'/deployments')
+    #result = requests.get('http://localhost:7189/api/environments', data=json.dumps(environment), headers=headers)
+    result = requests.get('http://localhost:7189/api/v1/environments/'+envname+'/deployments')
 
     print "\nGot response:\n"
     pprint(result)

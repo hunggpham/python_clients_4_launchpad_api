@@ -55,15 +55,22 @@ def main(args):
     cluster = {
   "name" : clustername,
   "productVersions" : {
-    "CDH" : "5.1.2"
+    "CDH" : "5.1.3"
   },
   "services" : [ "HDFS", "YARN", "ZOOKEEPER", "HIVE", "OOZIE", "HUE", "SPARK" ],
   "servicesConfigs" : {
     "HIVE" : { },
     "SPARK" : { },
-    "ZOOKEEPER" : { },
+    "ZOOKEEPER" : {      
+      "zookeeper_datadir_autocreate" : "true"
+    },
     "OOZIE" : { },
-    "HDFS" : { },
+    "HDFS" : { 
+      "dfs_permissions" : "true",
+      "dfs_block_size" : "134217728",
+      "dfs_webhdfs_enabled" : "true",
+      "dfs_umaskmode" : "022"
+    },
     "YARN" : { }
   },
   "virtualInstanceGroups" : {
@@ -101,7 +108,41 @@ def main(args):
         "HIVE" : [ "HIVESERVER2", "GATEWAY" ],
         "HDFS" : [ "HTTPFS", "GATEWAY" ]
       },
-      "roleTypesConfigs" : { }
+      "roleTypesConfigs" : { 
+        "HIVE" : {
+          "HIVESERVER2" : {
+            "hiveserver2_java_heapsize" : "1073741824"
+          },
+          "GATEWAY" : { }
+        },
+        "HUE" : {
+          "HUE_SERVER" : { }
+        },
+        "OOZIE" : {
+          "OOZIE_SERVER" : {
+            "oozie_java_heapsize" : "1073741824"
+          }
+        },
+        "HDFS" : {
+          "HTTPFS" : { },
+          "GATEWAY" : { }
+        },
+        "YARN" : {
+          "GATEWAY" : {
+            "mapred_submit_replication" : "3",
+            "yarn_app_mapreduce_am_resource_cpu_vcores" : "1",
+            "mapred_reduce_tasks" : "3",
+            "io_sort_mb" : "128",
+            "mapreduce_reduce_memory_mb" : "1024",
+            "mapreduce_reduce_cpu_vcores" : "1",
+            "mapreduce_reduce_java_opts_max_heap" : "825955249",
+            "mapreduce_map_memory_mb" : "1024",
+            "mapreduce_map_java_opts_max_heap" : "825955249",
+            "mapreduce_map_cpu_vcores" : "1",
+            "yarn_app_mapreduce_am_resource_mb" : "1024"
+          }
+        }
+      }
     },
     "master1" : {
       "name" : "master1",
@@ -134,7 +175,25 @@ def main(args):
         "HDFS" : [ "NAMENODE", "JOURNALNODE" ],
         "ZOOKEEPER" : [ "SERVER" ]
       },
-      "roleTypesConfigs" : { }
+      "roleTypesConfigs" : { 
+        "ZOOKEEPER" : {
+          "SERVER" : {
+            "dataLogDir" : "/data1/log/zookeeper",
+            "maxClientCnxns" : "100",
+            "dataDir" : "/data0/zookeeper",
+            "zookeeper_server_java_heapsize" : "1073741824"
+          }
+        },
+        "HDFS" : {
+          "NAMENODE" : {
+            "namenode_java_heapsize" : "1073741824",
+            "dfs_name_dir_list" : "/data0/nn"
+          },
+          "JOURNALNODE" : {
+            "dfs_journalnode_edits_dir" : "/data0/jn"
+          }
+        }
+      }
     },
     "master3" : {
       "name" : "master3",
@@ -170,7 +229,37 @@ def main(args):
         "HDFS" : [ "BALANCER", "JOURNALNODE" ],
         "YARN" : [ "JOBHISTORY" ]
       },
-      "roleTypesConfigs" : { }
+      "roleTypesConfigs" : { 
+        "HIVE" : {
+          "HIVEMETASTORE" : {
+            "hive_metastore_java_heapsize" : "1073741824"
+          }
+        },
+        "SPARK" : {
+          "SPARK_MASTER" : {
+            "master_max_heapsize" : "1073741824"
+          }
+        },
+        "ZOOKEEPER" : {
+          "SERVER" : {
+            "dataLogDir" : "/data1/log/zookeeper",
+            "maxClientCnxns" : "100",
+            "dataDir" : "/data0/zookeeper",
+            "zookeeper_server_java_heapsize" : "1073741824"
+          }
+        },
+        "HDFS" : {
+          "BALANCER" : { },
+          "JOURNALNODE" : {
+            "dfs_journalnode_edits_dir" : "/data0/jn"
+          }
+        },
+        "YARN" : {
+          "JOBHISTORY" : {
+            "mr2_jobhistory_java_heapsize" : "1073741824"
+          }
+        }
+      }
     },
     "master2" : {
       "name" : "master2",
@@ -204,7 +293,35 @@ def main(args):
         "ZOOKEEPER" : [ "SERVER" ],
         "HDFS" : [ "SECONDARYNAMENODE", "JOURNALNODE" ]
       },
-      "roleTypesConfigs" : { }
+      "roleTypesConfigs" : { 
+        "ZOOKEEPER" : {
+          "SERVER" : {
+            "dataLogDir" : "/data1/log/zookeeper",
+            "maxClientCnxns" : "100",
+            "dataDir" : "/data0/zookeeper",
+            "zookeeper_server_java_heapsize" : "1073741824"
+          }
+        },
+        "HDFS" : {
+          "SECONDARYNAMENODE" : {
+            "secondary_namenode_java_heapsize" : "1073741824",
+            "fs_checkpoint_dir_list" : "/data0/snn"
+          },
+          "JOURNALNODE" : {
+            "dfs_journalnode_edits_dir" : "/data0/jn"
+          }
+        },
+        "YARN" : {
+          "RESOURCEMANAGER" : {
+            "yarn_scheduler_increment_allocation_mb" : "256",
+            "yarn_scheduler_maximum_allocation_vcores" : "4",
+            "resource_manager_java_heapsize" : "1073741824",
+            "yarn_scheduler_minimum_allocation_mb" : "1024",
+            "yarn_scheduler_minimum_allocation_vcores" : "1",
+            "yarn_scheduler_maximum_allocation_mb" : "4096"
+          }
+        }
+      }
     },
     "workers" : {
       "name" : "workers",
@@ -308,7 +425,36 @@ def main(args):
         "YARN" : [ "NODEMANAGER" ],
         "HIVE" : [ "GATEWAY" ]
       },
-      "roleTypesConfigs" : { }
+      "roleTypesConfigs" : { 
+        "HIVE" : {
+          "GATEWAY" : { }
+        },
+        "SPARK" : {
+          "SPARK_WORKER" : {
+            "executor_total_max_heapsize" : "8589934592",
+            "worker_max_heapsize" : "1073741824",
+            "worker_webui_port" : "18081",
+            "rm_io_weight" : "500",
+            "worker_port" : "7078",
+            "process_auto_restart" : "true",
+            "rm_cpu_shares" : "1024"
+          }
+        },
+        "HDFS" : {
+          "DATANODE" : {
+            "datanode_java_heapsize" : "1073741824",
+            "dfs_datanode_du_reserved" : "10737418240",
+            "dfs_datanode_failed_volumes_tolerated" : "1"
+          }
+        },
+        "YARN" : {
+          "NODEMANAGER" : {
+            "yarn_nodemanager_resource_memory_mb" : "4096",
+            "yarn_nodemanager_resource_cpu_vcores" : "4",
+            "node_manager_java_heapsize" : "1073741824"
+          }
+        }
+      }
     }
   },
   "externalDatabases" : { }
@@ -317,11 +463,11 @@ def main(args):
 
  
 
-    print 'Doing POST request to http://launchpad-server:8080/api/environments with:\n'
+    print 'Doing POST request to http://launchpad-server:7189/api/environments with:\n'
     pprint(cluster)
 
     headers = {'content-type': 'application/json'}
-    result = requests.post('http://localhost:8080/api/v1/environments/'+envname+'/deployments/'+deployname+'/clusters', data=json.dumps(cluster), headers=headers)
+    result = requests.post('http://localhost:7189/api/v1/environments/'+envname+'/deployments/'+deployname+'/clusters', data=json.dumps(cluster), headers=headers)
 
     print '\nGot response:\n'
     pprint(result)

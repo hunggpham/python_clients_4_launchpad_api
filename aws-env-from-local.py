@@ -1,5 +1,4 @@
 #!/usr/bin/python
-# This is the orginal from which I hacked all others
 
 import sys
 import os
@@ -35,12 +34,12 @@ def main(args):
         'provider': provider
     } 
 
-    print "Doing GET request to http://54.88.66.197:8080/api/environments with:\n"
+    print "Doing GET request to http://54.88.66.197:7189/api/environments with:\n"
     pprint(environment)
 
     headers = {'content-type': 'application/json'}
-    #result = requests.get('http://localhost:8080/api/environments', data=json.dumps(environment), headers=headers)
-    result = requests.get('http://localhost:8080/api/v1/environments')
+    #result = requests.get('http://localhost:7189/api/environments', data=json.dumps(environment), headers=headers)
+    result = requests.get('http://localhost:7189/api/v1/environments')
 
     print "\nGot response:\n"
     pprint(result)

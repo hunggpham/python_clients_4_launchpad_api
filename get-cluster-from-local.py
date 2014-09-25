@@ -42,11 +42,11 @@ def main(args):
 
  
 
-    print 'Doing GET request to http://launchpad-server:8080/api/environments with:\n'
+    print 'Doing GET request to http://launchpad-server:7189/api/environments with:\n'
 
     headers = {'content-type': 'application/json'}
-    #result = requests.post('http://localhost:8080/api/v1/environments/'+envname+'/deployments/'+deployname+'/clusters', data=json.dumps(cluster), headers=headers)
-    result = requests.get('http://localhost:8080/api/v1/environments/'+envname+'/deployments/'+deployname+'/clusters')
+    #result = requests.post('http://localhost:7189/api/v1/environments/'+envname+'/deployments/'+deployname+'/clusters', data=json.dumps(cluster), headers=headers)
+    result = requests.get('http://localhost:7189/api/v1/environments/'+envname+'/deployments/'+deployname+'/clusters')
 
     print '\nGot response:\n'
     pprint(result)
